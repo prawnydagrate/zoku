@@ -84,7 +84,7 @@
 					}
 					return;
 				}
-				if (!Array.from("0123456789").includes(key)) return;
+				if (!Array.from("123456789").includes(key)) return;
 				// fill square
 				const n = parseInt(key);
 				grid[y][x] = n;
