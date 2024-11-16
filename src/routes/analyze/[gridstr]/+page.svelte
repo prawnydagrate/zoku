@@ -1,15 +1,16 @@
 <script>
-	import { solveSudoku, solveSudokuDetailed } from "$lib/utils.js";
+	import { rerenderTime, solveSudoku, solveSudokuDetailed } from "$lib/utils.js";
 	import SudokuGrid from "$lib/components/SudokuGrid.svelte";
 	import editIcon from "$lib/assets/edit.svg";
 	import solveIcon from "$lib/assets/solve.svg";
+	import revertIcon from "$lib/assets/revert.svg";
 
 	const { data } = $props();
-	const { grid: gridOrig, zeroes: zeroesOrig, gridstr: gridstrOrig } = data;
+	const { grid: gridOrig, zeroes, gridstr: gridstrOrig } = data;
 	let grid = $state(gridOrig);
 	let detailed = $state(false);
 	let solving = $state(false);
-	let solved = $state(0);
+	let solved = $state(undefined);
 
 	let gridstr = gridstrOrig;
 	const updateGridstr = (grid) =>
@@ -18,8 +19,9 @@
 			.map((n) => n.toString())
 			.join(""));
 
-	const solve = () => {
+	const solve = async () => {
 		solving = true;
+		await rerenderTime();
 		const start = Date.now();
 		const sol = solveSudoku([...grid.map((row) => [...row])], 0, 0);
 		const end = Date.now();
@@ -45,30 +47,39 @@
 		solved = end - start;
 		grid = sol;
 	};
+
+	const resetSol = () => {
+		for (let [y, x] of zeroes) {
+			grid[y][x] = 0;
+			solved = undefined;
+		}
+	};
 </script>
 
 <div id="grid-container">
 	{#key grid}
-		<SudokuGrid {grid} zeroes={zeroesOrig} {updateGridstr} />
+		<SudokuGrid {grid} {zeroes} {updateGridstr} />
 	{/key}
 	<div class="col">
 		<h2>Analysis</h2>
 		{#key solving}
 			<button onclick={() => (location.href = `/edit/${gridstr}`)} disabled={solving}>
-				<img src={editIcon} alt="Edit" /> Edit
+				<img src={editIcon} alt="Edit" />Edit
 			</button>
 			<div class="row">
 				<input id="detailed" type="checkbox" bind:checked={detailed} disabled={solving} />
-				<label for="detailed"> Show steps (slow) </label>
+				<label for="detailed">Show steps (slow)</label>
 			</div>
 			<button onclick={!solved ? (detailed ? solveDetailed : solve) : () => {}} disabled={solving}>
-				<img src={solveIcon} alt="Solve" /> Solve
+				<img src={solveIcon} alt="Solve" />
+				{solving ? "Solving..." : "Solve"}
 			</button>
 		{/key}
-		{#if solved > 0}
-			<span>
-				Solved in {(solved - (solved % 10)) / 1000}s. Reload the page or edit the grid to try again.
-			</span>
+		{#if solved >= 0}
+			<div class="done">
+				<div>Solved in <span class="code">{(solved - (solved % 10)) / 1000}s</span>.</div>
+				<button onclick={resetSol}><img src={revertIcon} alt="Revert" />Revert</button>
+			</div>
 		{:else if solved < 0}
 			<span> This sudoku has no valid solutions. Edit the grid to try a different one. </span>
 		{/if}
@@ -81,13 +92,28 @@
 
 	#grid-container {
 		display: flex;
+		font-family: "Courier New", monospace;
+	}
+
+	@media screen and (orientation: portrait) {
+		#grid-container {
+			flex-direction: column;
+			margin-bottom: 2rem;
+		}
 	}
 
 	#grid-container > div {
 		max-width: 40%;
 	}
 
-	#grid-container .col {
+	@media screen and (orientation: portrait) {
+		#grid-container > div {
+			max-width: unset;
+		}
+	}
+
+	#grid-container .col,
+	#grid-container .done {
 		display: flex;
 		flex-direction: column;
 	}
@@ -98,7 +124,6 @@
 
 	#grid-container .row > * {
 		margin: 1rem 4px 4px 4px;
-		font-family: "Courier New", monospace;
 	}
 
 	#grid-container .row > #detailed {
@@ -109,7 +134,6 @@
 
 	#grid-container span {
 		margin-top: 3rem;
-		font-family: "Courier New", monospace;
 	}
 
 	#grid-container h2 {
@@ -118,6 +142,7 @@
 	}
 
 	#grid-container button {
+		max-height: 44px;
 		max-width: 192px;
 		border: 1px solid #666;
 		border-radius: 32px;
@@ -155,5 +180,13 @@
 
 	#grid-container button > * {
 		margin: 0 12px;
+	}
+
+	#grid-container .done {
+		margin-top: 1rem;
+	}
+
+	.code {
+		font-family: "Courier", monospace;
 	}
 </style>

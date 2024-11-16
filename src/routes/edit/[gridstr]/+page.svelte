@@ -3,18 +3,18 @@
 	import analyzeIcon from "$lib/assets/analyze.svg";
 
 	const { data } = $props();
-	const { grid: gridOrig, zeroes: zeroesOrig, gridstr: gridstrOrig } = data;
+	const { grid, zeroes: zeroes, gridstr: gridstrOrig } = data;
 
 	let gridstr = gridstrOrig;
-	const updateGridstr = (grid) =>
-		(gridstr = grid
+	const updateGridstr = (g) =>
+		(gridstr = g
 			.flat()
 			.map((n) => n.toString())
 			.join(""));
 </script>
 
 <div id="grid-container">
-	<EditableSudokuGrid grid={gridOrig} zeroes={zeroesOrig} {updateGridstr} />
+	<EditableSudokuGrid {grid} {zeroes} {updateGridstr} />
 	<div>
 		<h2>Editor</h2>
 		<button onclick={() => (location.href = `/analyze/${gridstr}`)}>
@@ -41,6 +41,14 @@
 
 	#grid-container {
 		display: flex;
+		font-family: "Courier New", monospace;
+	}
+
+	@media screen and (orientation: portrait) {
+		#grid-container {
+			flex-direction: column;
+			margin-bottom: 2rem;
+		}
 	}
 
 	#grid-container > div {
@@ -49,13 +57,18 @@
 		max-width: 40%;
 	}
 
+	@media screen and (orientation: portrait) {
+		#grid-container > div {
+			max-width: unset;
+		}
+	}
+
 	#grid-container #instructions {
 		margin-top: 2rem;
-		font-family: "Courier New", monospace;
 	}
 
 	.code {
-		font-family: Courier, monospace;
+		font-family: "Courier", monospace;
 	}
 
 	#grid-container h2 {
@@ -64,6 +77,7 @@
 	}
 
 	#grid-container button {
+		max-height: 44px;
 		max-width: 164px;
 		border: 1px solid #666;
 		border-radius: 32px;

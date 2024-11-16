@@ -66,6 +66,9 @@ export function solveSudoku(
     return null;
 }
 
+export const rerenderTime = async () =>
+    await new Promise(r => setTimeout(r, 0));
+
 export async function solveSudokuDetailed(
     grid,
     row,
@@ -82,17 +85,15 @@ export async function solveSudokuDetailed(
     for (let n = 1; n <= 9; n++) {
         if (isValid(n, grid, row, col)) {
             grid[row][col] = n;
-            if (Date.now() % 200 === 0)
-                updateGrid(grid);
-            await new Promise(r => setTimeout(r, 0));
+            updateGrid(grid);
+            await rerenderTime();
             const res = await solveSudokuDetailed(grid, row, col, updateGrid);
             if (res != null) {
                 return res;
             }
             grid[row][col] = 0;
-            if (Date.now() % 200 === 0)
-                updateGrid(grid);
-            await new Promise(r => setTimeout(r, 0));
+            updateGrid(grid);
+            await rerenderTime();
         }
     }
     return null;

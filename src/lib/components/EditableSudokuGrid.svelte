@@ -22,6 +22,19 @@
 		return zindex;
 	};
 
+	const isDirection = (key, direction) => {
+		switch (direction) {
+			case "u":
+				return ["ArrowUp", "k"].includes(key);
+			case "r":
+				return ["ArrowRight", "l"].includes(key);
+			case "d":
+				return ["ArrowDown", "j"].includes(key);
+			case "l":
+				return ["ArrowLeft", "h"].includes(key);
+		}
+	};
+
 	onMount(
 		() =>
 			(document.onkeyup = (e) => {
@@ -43,7 +56,13 @@
 					zeroes = newZeroes;
 					return;
 				}
-				if (selected == null) return;
+				if (selected == null) {
+					if (isDirection(key, "r")) selected = [0, 0];
+					if (isDirection(key, "d")) selected = [0, 4];
+					if (isDirection(key, "l")) selected = [8, 8];
+					if (isDirection(key, "u")) selected = [8, 4];
+					return;
+				}
 				let [y, x] = selected;
 				// unselect
 				if (key === "Escape") {
@@ -51,25 +70,25 @@
 					return;
 				}
 				// navigation
-				if (key === "ArrowDown") {
+				if (isDirection(key, "d")) {
 					if (++y === 9) {
 						y = 0;
 					}
 					selected = [y, x];
 					return;
-				} else if (key === "ArrowLeft") {
+				} else if (isDirection(key, "l")) {
 					if (--x === -1) {
 						x = 8;
 					}
 					selected = [y, x];
 					return;
-				} else if (key === "ArrowRight") {
+				} else if (isDirection(key, "r")) {
 					if (++x === 9) {
 						x = 0;
 					}
 					selected = [y, x];
 					return;
-				} else if (key === "ArrowUp") {
+				} else if (isDirection(key, "u")) {
 					if (--y === -1) {
 						y = 8;
 					}
@@ -134,11 +153,14 @@
 		font-size: 24pt;
 		background-color: #e0ffff; /* equiv to lightcyan */
 		color: #333;
-		transition-duration: 200ms;
 	}
 
 	table#grid td:hover {
 		background-color: #ffffef;
+	}
+
+	table#grid td.selected {
+		background-color: #ffff99;
 	}
 
 	table#grid td.row-2,
@@ -175,9 +197,5 @@
 
 	table#grid td.col-8 {
 		border-right-width: 3px;
-	}
-
-	table#grid td.selected {
-		background-color: #ffffbb;
 	}
 </style>

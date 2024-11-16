@@ -10,6 +10,6 @@
 
 <Navbar />
 
-<div style="margin-top: 92px">
+<div style="margin: 1rem auto auto 1rem">
 	{@render children()}
 </div>
