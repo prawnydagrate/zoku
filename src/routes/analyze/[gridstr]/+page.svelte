@@ -143,7 +143,7 @@
 
 	#grid-container button {
 		max-height: 44px;
-		max-width: 192px;
+		max-width: 164px;
 		border: 1px solid #666;
 		border-radius: 32px;
 		background-color: #dfffdf;
@@ -187,6 +187,6 @@
 	}
 
 	.code {
-		font-family: "Courier", monospace;
+		font-weight: bold;
 	}
 </style>

@@ -68,7 +68,7 @@
 	}
 
 	.code {
-		font-family: "Courier", monospace;
+		font-weight: bold;
 	}
 
 	#grid-container h2 {

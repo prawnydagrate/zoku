@@ -37,7 +37,6 @@
 		font-size: 24pt;
 		background-color: #e0ffff; /* equiv to lightcyan */
 		color: #333;
-		transition-duration: 200ms;
 	}
 
 	table#grid td:hover {
