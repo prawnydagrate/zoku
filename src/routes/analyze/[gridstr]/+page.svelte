@@ -37,6 +37,7 @@
 
 	const solveDetailed = async () => {
 		solving = true;
+		await rerenderTime();
 		const start = Date.now();
 		const sol = await solveSudokuDetailed(
 			[...grid.map((row) => [...row])],
