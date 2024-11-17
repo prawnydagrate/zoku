@@ -98,3 +98,17 @@ export async function solveSudokuDetailed(
     }
     return null;
 }
+
+export function emptyGrid() {
+    const newGrid = [];
+    for (let _ = 0; _ < 9; _++) {
+        newGrid.push(Array(9).fill(0));
+    }
+    const newZeroes = [];
+    for (let y = 0; y < 9; y++) {
+        for (let x = 0; x < 9; x++) {
+            newZeroes.push([y, x]);
+        }
+    }
+    return [newGrid, newZeroes];
+}

@@ -3,14 +3,13 @@
 </nav>
 
 <style>
-	@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:ital,wght@0,400..700;1,400..700&family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&family=VT323&display=swap");
+	@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 
 	#zoku-navbar {
 		width: 100%;
 		background-color: #ffeeee;
 		border-bottom: 1px solid #666;
 		padding: 16px 24px;
-		display: inline-block;
 		margin: 0 auto auto 0;
 	}
 

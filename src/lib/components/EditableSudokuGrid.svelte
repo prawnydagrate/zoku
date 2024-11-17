@@ -1,11 +1,39 @@
 <script>
+	import { emptyGrid } from "$lib/utils";
 	import { onMount } from "svelte";
 
-	const { grid: gridOrig, zeroes: zeroesOrig, updateGridstr } = $props();
+	const { grid: gridOrig, zeroes: zeroesOrig, updateGrid } = $props();
 	let grid = $state(gridOrig);
 	let zeroes = $state(zeroesOrig);
 
-	$effect(() => updateGridstr(grid));
+	$effect(() => updateGrid(grid, zeroes));
+
+	// to show the keyboard on mobile devices
+	let invisibleInput;
+	onMount(() => {
+		invisibleInput = document.createElement("input");
+		document.body.appendChild(invisibleInput);
+		invisibleInput.id = "invisible-input";
+		invisibleInput.type = "number";
+		invisibleInput.style.opacity = 0;
+		invisibleInput.style.position = "absolute";
+		invisibleInput.style.left = "-9999px";
+		invisibleInput.style.maxWidth = "20px";
+		invisibleInput.style.height = "55px";
+		for (let td of document.getElementsByTagName("td")) {
+			td.setAttribute(
+				"onclick",
+				"	const td = event.target;" +
+					"	const rect = td.getBoundingClientRect();" +
+					"	let input = document.getElementById('invisible-input');" +
+					"	input.style.top = `${Math.floor(rect.top)}px`;" +
+					"	input.style.left = `${Math.floor(rect.left)}px`;" +
+					"	input.focus();" +
+					"	input.click();"
+			);
+		}
+		let originalHeight = window.innerHeight;
+	});
 
 	let selected = $state(null);
 	const isSelected = (y, x) => selected != null && selected[0] == y && selected[1] == x;
@@ -42,18 +70,7 @@
 				const { key, keyCode } = e;
 				// clear grid
 				if (key === "X") {
-					const newGrid = [];
-					for (let _ = 0; _ < 9; _++) {
-						newGrid.push(Array(9).fill(0));
-					}
-					grid = newGrid;
-					const newZeroes = [];
-					for (let y = 0; y < 9; y++) {
-						for (let x = 0; x < 9; x++) {
-							newZeroes.push([y, x]);
-						}
-					}
-					zeroes = newZeroes;
+					[grid, zeroes] = emptyGrid();
 					return;
 				}
 				if (selected == null) {
@@ -113,6 +130,10 @@
 				}
 			})
 	);
+
+	const selectSquare = (y, x) => {
+		selected = isSelected(y, x) ? null : [y, x];
+	};
 </script>
 
 <table id="grid">
@@ -122,7 +143,7 @@
 				{#each row as cell, x}
 					<td
 						class="row-{y} col-{x}{isSelected(y, x) ? ' selected' : ''}"
-						onclick={() => (selected = isSelected(y, x) ? null : [y, x])}
+						onclick={() => selectSquare(y, x)}
 					>
 						{#if cell != 0}
 							{#if zeroes.find(([f, s]) => f == y && s == x) != null}

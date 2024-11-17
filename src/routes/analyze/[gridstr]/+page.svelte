@@ -37,7 +37,12 @@
 	const solveDetailed = async () => {
 		solving = true;
 		const start = Date.now();
-		const sol = await solveSudokuDetailed(grid, 0, 0, (g) => (grid = g));
+		const sol = await solveSudokuDetailed(
+			[...grid.map((row) => [...row])],
+			0,
+			0,
+			(g) => (grid = g)
+		);
 		const end = Date.now();
 		solving = false;
 		if (sol == null) {
@@ -87,7 +92,7 @@
 </div>
 
 <style>
-	@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:ital,wght@0,400..700;1,400..700&family=Ubuntu+Sans:ital,wght@0,100..800;1,100..800&family=VT323&display=swap");
+	@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
 	/* @import url("https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=VT323&display=swap"); */
 
 	#grid-container {
