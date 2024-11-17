@@ -74,21 +74,22 @@ export async function solveSudokuDetailed(
     row,
     col,
     updateGrid,
-    ncalls,
+    updateNcalls,
 ) {
+    updateNcalls();
     if (row == 9) {
-        return [grid, ncalls];
+        return grid;
     } else if (col == 9) {
-        return await solveSudokuDetailed(grid, row + 1, 0, updateGrid, ncalls + 1);
+        return await solveSudokuDetailed(grid, row + 1, 0, updateGrid, updateNcalls);
     } else if (grid[row][col] != 0) {
-        return await solveSudokuDetailed(grid, row, col + 1, updateGrid, ncalls + 1);
+        return await solveSudokuDetailed(grid, row, col + 1, updateGrid, updateNcalls);
     }
     for (let n = 1; n <= 9; n++) {
         if (isValid(n, grid, row, col)) {
             grid[row][col] = n;
             updateGrid(grid);
             await rerenderTime();
-            const res = await solveSudokuDetailed(grid, row, col, updateGrid, ncalls + 1);
+            const res = await solveSudokuDetailed(grid, row, col, updateGrid, updateNcalls);
             if (res != null) {
                 return res;
             }

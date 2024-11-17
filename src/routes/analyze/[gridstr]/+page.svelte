@@ -37,6 +37,7 @@
 
 	const solveDetailed = async () => {
 		solving = true;
+		ncalls = 0;
 		await rerenderTime();
 		const start = Date.now();
 		const sol = await solveSudokuDetailed(
@@ -44,7 +45,7 @@
 			0,
 			0,
 			(g) => (grid = g),
-			0
+			() => ncalls++
 		);
 		const end = Date.now();
 		solving = false;
@@ -53,8 +54,7 @@
 			return;
 		}
 		solved = end - start;
-		console.log(sol);
-		[grid, ncalls] = sol;
+		grid = sol;
 	};
 
 	const resetSol = () => {
@@ -97,8 +97,10 @@
 				</div>
 				<button onclick={resetSol}><img src={revertIcon} alt="Revert" />Revert</button>
 			</div>
+		{:else if ncalls != null}
+			<div class="doing"><span class="code">{ncalls}</span> steps in...</div>
 		{:else if solved < 0}
-			<span> This sudoku has no valid solutions. Edit the grid to try a different one. </span>
+			<span>This sudoku has no valid solutions. Edit the grid to try a different one.</span>
 		{/if}
 	</div>
 </div>
@@ -199,7 +201,8 @@
 		margin: 0 12px;
 	}
 
-	#grid-container .done {
+	#grid-container .done,
+	#grid-container .doing {
 		margin-top: 1rem;
 	}
 

@@ -44,7 +44,6 @@
 				class="link"
 				onclick={() => {
 					[grid, zeroes] = emptyGrid();
-					console.log(grid, zeroes);
 				}}
 				aria-label="Clear grid"
 			>
