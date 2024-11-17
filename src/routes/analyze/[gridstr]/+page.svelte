@@ -11,6 +11,7 @@
 	let detailed = $state(false);
 	let solving = $state(false);
 	let solved = $state(undefined);
+	let ncalls = $state(undefined);
 
 	let gridstr = gridstrOrig;
 	const updateGridstr = (grid) =>
@@ -41,7 +42,8 @@
 			[...grid.map((row) => [...row])],
 			0,
 			0,
-			(g) => (grid = g)
+			(g) => (grid = g),
+			0
 		);
 		const end = Date.now();
 		solving = false;
@@ -50,13 +52,15 @@
 			return;
 		}
 		solved = end - start;
-		grid = sol;
+		console.log(sol);
+		[grid, ncalls] = sol;
 	};
 
 	const resetSol = () => {
 		for (let [y, x] of zeroes) {
 			grid[y][x] = 0;
 			solved = undefined;
+			ncalls = undefined;
 		}
 	};
 </script>
@@ -82,7 +86,14 @@
 		{/key}
 		{#if solved >= 0}
 			<div class="done">
-				<div>Solved in <span class="code">{(solved - (solved % 10)) / 1000}s</span>.</div>
+				<div>
+					Solved in
+					<span class="code">{(solved - (solved % 10)) / 1000}s</span>{#if ncalls != null}
+						&nbsp;with <span class="code">{ncalls}</span> steps.
+					{:else}
+						.
+					{/if}
+				</div>
 				<button onclick={resetSol}><img src={revertIcon} alt="Revert" />Revert</button>
 			</div>
 		{:else if solved < 0}

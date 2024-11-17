@@ -2,7 +2,7 @@
 	import githubIcon from "$lib/assets/github.svg";
 </script>
 
-<nav id="footer">
+<footer id="footer">
 	<!-- spacer -->
 	<div style="width: 8px"></div>
 	<div class="row">
@@ -17,7 +17,7 @@
 			<img src={githubIcon} alt="GitHub" />
 		</a>
 	</div>
-</nav>
+</footer>
 
 <style>
 	@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");

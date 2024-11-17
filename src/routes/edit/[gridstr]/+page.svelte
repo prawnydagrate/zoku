@@ -7,7 +7,7 @@
 	const { grid: gridOrig, zeroes: zeroesOrig, gridstr: gridstrOrig } = data;
 
 	let grid = $state(gridOrig);
-	let zeroes = $state(gridOrig);
+	let zeroes = $state(zeroesOrig);
 	let gridstr = gridstrOrig;
 
 	$effect(
