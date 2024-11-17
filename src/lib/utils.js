@@ -95,7 +95,6 @@ export async function solveSudokuDetailed(
             }
             grid[row][col] = 0;
             updateGrid(grid);
-            await rerenderTime();
         }
     }
     return null;

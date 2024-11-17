@@ -107,7 +107,6 @@
 
 <style>
 	@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
-	/* @import url("https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=VT323&display=swap"); */
 
 	#grid-container {
 		display: flex;
@@ -192,10 +191,6 @@
 		width: 18px;
 		height: 18px;
 	}
-
-	/* #grid-container button > span {
-		font-family: "Noto Color Emoji", sans-serif;
-	} */
 
 	#grid-container button > * {
 		margin: 0 12px;
