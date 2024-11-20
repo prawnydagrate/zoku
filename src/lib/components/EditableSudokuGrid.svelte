@@ -114,7 +114,7 @@
 					selected = [y, x];
 					return;
 				}
-				// clear square
+				// clear cell
 				if (["Backspace", "Delete"].includes(key)) {
 					grid[y][x] = 0;
 					if (getZeroIndex(y, x) === -1) {
@@ -123,7 +123,7 @@
 					return;
 				}
 				if (!Array.from("123456789").includes(key)) return;
-				// fill square
+				// fill cell
 				const n = parseInt(key);
 				grid[y][x] = n;
 				const zindex = getZeroIndex(y, x);
@@ -133,7 +133,7 @@
 			})
 	);
 
-	const selectSquare = (y, x) => {
+	const selectCell = (y, x) => {
 		selected = isSelected(y, x) ? null : [y, x];
 	};
 </script>
@@ -145,7 +145,7 @@
 				{#each row as cell, x}
 					<td
 						class="row-{y} col-{x}{isSelected(y, x) ? ' selected' : ''}"
-						onclick={() => selectSquare(y, x)}
+						onclick={() => selectCell(y, x)}
 					>
 						{#if cell != 0}
 							{#if zeroes.find(([f, s]) => f == y && s == x) != null}

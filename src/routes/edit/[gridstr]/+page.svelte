@@ -29,13 +29,13 @@
 			<img src={analyzeIcon} alt="Analyze" /> Analyze
 		</button>
 		<div id="instructions">
-			Select a square, and press:
+			Select a cell, and press:
 			<ul>
-				<li>Any digit to fill the square</li>
-				<li><span class="code">Backspace</span> to clear the square</li>
-				<li><span class="code">Escape</span> to unselect the square</li>
+				<li>Any digit to fill the cell</li>
+				<li><span class="code">Backspace</span> to clear the cell</li>
+				<li><span class="code">Escape</span> to unselect the cell</li>
 			</ul>
-			The mouse pointer or the arrow keys can be used to navigate between squares. Press
+			The mouse pointer or the arrow keys can be used to navigate between cells. Press
 			<span class="code">Shift</span>&#x2009;<span class="code">+</span>&#x2009;<span class="code"
 				>X</span
 			>
