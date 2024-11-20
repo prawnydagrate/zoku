@@ -21,11 +21,11 @@
 
 <style>
 	#footer {
+		flex-shrink: 0;
 		display: flex;
 
 		width: 100%;
-		min-height: 45px;
-		margin-top: auto;
+		height: 45px;
 		padding: 4px 24px 4px 24px;
 
 		border-top: 1px solid #666;

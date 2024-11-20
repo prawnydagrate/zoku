@@ -1,8 +1,8 @@
 import { error } from '@sveltejs/kit';
 
-export function loadGridstr(gridstr) {
+export function loadGridstr(gridstr, validate) {
     if (gridstr.length !== 81 || Array.from(gridstr).reduce((prev, curr) => Array.from("0123456789").includes(curr) ? prev : prev + 1, 0) !== 0) {
-        throw error(400, "Invalid grid");
+        error(400, { valid: false, legal: false });
     }
     const grid = [];
     let ptr = 0;
@@ -11,6 +11,7 @@ export function loadGridstr(gridstr) {
         grid.push(gridstr.substring(ptr, newPtr).split("").map(digit => parseInt(digit)));
         ptr = newPtr;
     }
+    if (validate && !validateGrid(grid)) error(400, { valid: true, legal: false, gridstr });
     const zeroes = [];
     for (let y = 0; y < grid.length; y++) {
         for (let x = 0; x < grid[y].length; x++) {
@@ -20,6 +21,43 @@ export function loadGridstr(gridstr) {
         }
     }
     return { grid, zeroes, gridstr };
+}
+
+function validateGrid(grid) {
+    const cols = [];
+    const subgrids = [];
+    for (let row = 0; row < 9; row++) {
+        // validate row
+        if (!validateArray(grid[row])) return false;
+        for (let col = 0; col < 9; col++) {
+            const n = grid[row][col];
+            // save column to validate later
+            if (cols[col] == null)
+                cols[col] = [n];
+            else
+                cols[col].push(n);
+            // save subgrid to validate later
+            const subgridIndex = Math.floor(col / 3) + Math.floor(row / 3) * 3; // magical math i came up with
+            if (subgrids[subgridIndex] == null)
+                subgrids[subgridIndex] = [n];
+            else subgrids[subgridIndex].push(n);
+        }
+    }
+    // validate columns
+    if (cols.filter(col => !validateArray(col)).length !== 0) return false;
+    // validate subgrids
+    if (subgrids.filter(subgrid => !validateArray(subgrid)).length !== 0) return false;
+    return true;
+}
+
+function validateArray(arr) {
+    const dup = [];
+    for (let n of arr) {
+        if (n === 0) continue;
+        if (dup.includes(n))
+            return false;
+        dup.push(n);
+    } return true;
 }
 
 function isValid(

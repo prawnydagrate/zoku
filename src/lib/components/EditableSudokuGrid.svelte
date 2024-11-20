@@ -11,15 +11,17 @@
 	// to show the keyboard on mobile devices
 	let invisibleInput;
 	onMount(() => {
-		invisibleInput = document.createElement("input");
-		document.body.appendChild(invisibleInput);
-		invisibleInput.id = "invisible-input";
-		invisibleInput.type = "number";
-		invisibleInput.style.opacity = 0;
-		invisibleInput.style.position = "absolute";
-		invisibleInput.style.left = "-9999px";
-		invisibleInput.style.maxWidth = "20px";
-		invisibleInput.style.height = "55px";
+		if (invisibleInput == null) {
+			invisibleInput = document.createElement("input");
+			document.body.appendChild(invisibleInput);
+			invisibleInput.id = "invisible-input";
+			invisibleInput.type = "number";
+			invisibleInput.style.opacity = 0;
+			invisibleInput.style.position = "absolute";
+			invisibleInput.style.left = "-9999px";
+			invisibleInput.style.maxWidth = "20px";
+			invisibleInput.style.height = "55px";
+		}
 		for (let td of document.getElementsByTagName("td")) {
 			td.setAttribute(
 				"onclick",

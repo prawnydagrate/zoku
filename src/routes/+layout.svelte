@@ -9,10 +9,12 @@
 	<title>zoku</title>
 </svelte:head>
 
-<Navbar />
+<div style="display: flex; flex-direction: column; flex-grow: 1">
+	<Navbar />
 
-<div style="margin: 1rem auto 1rem 1rem">
-	{@render children()}
+	<div style="flex-grow: 1; margin: 1rem auto 1rem 1rem">
+		{@render children()}
+	</div>
 </div>
 
 <Footer />
