@@ -97,10 +97,10 @@
 				</div>
 				<button onclick={resetSol}><img src={revertIcon} alt="Revert" />Revert</button>
 			</div>
-		{:else if ncalls != null}
-			<div class="doing"><span class="code">{ncalls}</span> steps in...</div>
 		{:else if solved < 0}
 			<span>This sudoku has no valid solutions. Edit the grid to try a different one.</span>
+		{:else if ncalls != null}
+			<div class="doing"><span class="code">{ncalls}</span> steps in...</div>
 		{/if}
 	</div>
 </div>
