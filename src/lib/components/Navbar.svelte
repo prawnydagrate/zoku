@@ -3,22 +3,22 @@
 </nav>
 
 <style>
-	@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
-
 	#zoku-navbar {
 		width: 100%;
-		background-color: #ffeeee;
-		border-bottom: 1px solid #666;
-		padding: 16px 24px;
+		padding: 1rem 24px;
 		margin: 0 auto auto 0;
+
+		border-bottom: 1px solid #666;
+		background-color: #ffeeee;
 	}
 
 	#zoku-navbar > a {
-		color: black;
-		text-decoration: none;
+		margin: 8px 8px 8px 1rem;
+
 		font-family: "VT323", monospace;
 		font-size: 16pt;
-		margin: 8px;
+		text-decoration: none;
+		color: black;
 	}
 
 	#zoku-navbar > #nav-root {

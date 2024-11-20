@@ -54,27 +54,26 @@
 </div>
 
 <style>
-	@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
-
 	#grid-container {
 		display: flex;
-		font-family: "Courier New", monospace;
-	}
 
-	@media screen and (orientation: portrait) {
-		#grid-container {
-			flex-direction: column;
-			margin-bottom: 2rem;
-		}
+		font-family: "Courier New", monospace;
 	}
 
 	#grid-container > div {
 		display: flex;
 		flex-direction: column;
+
 		max-width: 40%;
 	}
 
 	@media screen and (orientation: portrait) {
+		#grid-container {
+			flex-direction: column;
+
+			margin-bottom: 2rem;
+		}
+
 		#grid-container > div {
 			max-width: unset;
 		}
@@ -94,18 +93,22 @@
 	}
 
 	#grid-container button {
-		max-height: 44px;
-		max-width: 164px;
-		border: 1px solid #666;
-		border-radius: 32px;
-		background-color: #dfffdf;
-		padding: 12px 18px;
-		margin: 2px;
-		font-family: "Courier New", monospace;
-		font-size: 12pt;
 		display: flex;
 		align-items: center;
 		justify-content: center;
+
+		max-height: 44px;
+		max-width: 164px;
+		padding: 12px 18px;
+		margin: 2px;
+
+		border: 1px solid #666;
+		border-radius: 32px;
+		background-color: #dfffdf;
+
+		font-family: "Courier New", monospace;
+		font-size: 12pt;
+
 		transition-duration: 200ms;
 	}
 
@@ -122,9 +125,10 @@
 	}
 
 	.link {
-		cursor: pointer;
-		color: rgb(120, 120, 224);
 		font-weight: 600;
+		color: rgb(120, 120, 224);
+
+		cursor: pointer;
 	}
 
 	.link:hover {

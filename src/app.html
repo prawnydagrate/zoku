@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" style="overflow: hidden scroll">
+<html lang="en" style="margin: 0; padding: 0; overflow: hidden scroll; min-height: 100dvh; width: 100dvw;">
 
 <head>
 	<meta charset="utf-8" />
@@ -7,10 +7,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="description" content="A sudoku-solving web app" />
 	%sveltekit.head%
+	<!-- VT323 font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 
-<body style="margin: 0" data-sveltekit-preload-data="hover">
-	<div style="display: contents">%sveltekit.body%</div>
+<body style="margin: 0; padding: 0; min-height: 100%" data-sveltekit-preload-data="hover">
+	<div style="min-height: 100%; display: flex; flex-direction: column">%sveltekit.body%</div>
 </body>
+<style>
+	* {
+		outline: 1px solid red;
+	}
+</style>
 
 </html>

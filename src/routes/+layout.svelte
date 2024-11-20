@@ -11,7 +11,7 @@
 
 <Navbar />
 
-<div style="margin: 1rem auto auto 1rem; min-height: 80vh;">
+<div style="margin: 1rem auto 1rem 1rem">
 	{@render children()}
 </div>
 

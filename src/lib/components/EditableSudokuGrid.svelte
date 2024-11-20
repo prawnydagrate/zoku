@@ -161,19 +161,33 @@
 
 <style>
 	table#grid {
-		border-collapse: collapse;
 		margin: 0 1rem 1rem 0;
+
+		border-collapse: collapse;
 	}
 
 	table#grid td {
-		border: 1px solid black;
 		width: 56px;
 		height: 56px;
+
+		border: 1px solid black;
+		background-color: #e0ffff; /* equiv to lightcyan */
+
 		text-align: center;
 		font-family: "Courier New", monospace;
 		font-size: 24pt;
-		background-color: #e0ffff; /* equiv to lightcyan */
 		color: #333;
+	}
+
+	@media screen and (orientation: portrait) {
+		table#grid {
+			width: 90vw;
+		}
+
+		table#grid td {
+			width: 10vw;
+			height: 10vw;
+		}
 	}
 
 	table#grid td:hover {

@@ -20,18 +20,19 @@
 </footer>
 
 <style>
-	@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
-
 	#footer {
-		margin-top: auto;
+		display: flex;
+
 		width: 100%;
 		min-height: 45px;
+		margin-top: auto;
+		padding: 4px 24px 4px 24px;
+
+		border-top: 1px solid #666;
+		background-color: #ffffee;
+
 		font-family: "VT323", monospace;
 		font-size: 16pt;
-		display: flex;
-		padding: 4px 24px 4px 24px;
-		background-color: #ffffee;
-		border-top: 1px solid #666;
 	}
 
 	#footer .row {
